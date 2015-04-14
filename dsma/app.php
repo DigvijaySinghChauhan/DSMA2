@@ -58,7 +58,7 @@ function add_server($vars) {
         unset($_POST['token']);
         if (mysql_num_rows($res) == 0) {
             $query = full_query("INSERT INTO mod_dsma (client_id,main_ip_address,server_name,additional_ip_addresses,multiple_nics,drac_ip,location,os,root_username,root_pass,ssh_port,rdc_port,control_panel,cpu,cpu_cache,cpu_ghz,ram,ram_speed,bandwidth,drive_controller,hd0,hd1,hd2,hd3,drive_raid,chassis_brand,chassis_model,service_tag,asset_tag,warranty_expiration,managed,vps,vps_node,switch_id,switch_port,rack_name_number,rack_position,ups,ups_port,pdu_id,pdu_port,server_notes) " . " VALUES ('" . $clientID . "', '" . $mainip_add . "', '" . $servername . "', '" . $addip_add . "', '" . $multiple_nics . "', '" . $dracip . "', '" . $location . "', '" . $os . "', '" . $root_username . "', '" . $root_pass . "', '" . $sshport . "', '" . $rdcport . "', '" . $controlpanel . "', '" . $cpu . "', '" . $cpucache . "', '" . $cpuspeed . "', '" . $ram . "', '" . $ramspeed . "', '" . $bandwidht . "', '" . $drivecon . "', '" . $hd0 . "', '" . $hd1 . "', '" . $hd2 . "', '" . $hd3 . "', '" . $driveraid . "', '" . $chassisbrand . "', '" . $chassisemodel . "', '" . $servicetag . "', '" . $assettag . "', '" . $warranty_exp . "', '" . $managed . "', '" . $vps . "', '" . $vpsnode . "', '" . $switch . "', '" . $switch_port . "', '" . $rack_no . "', '" . $rack_position . "', '" . $ups . "', '" . $ups_port . "', '" . $pdu . "', '" . $pdu_port . "', '" . $notes . "')");
-            header('Location: /whmcs_d/admin/addonmodules.php?module=dsma');
+            header('Location:'.$vars['modulelink']);
         } else {
             $query = "";
         }
@@ -76,7 +76,7 @@ function edit_server($vars) {
     require_once 'views/edit_server.php';
 }
 
-function update_edit_server() {
+function update_edit_server($vars) {
 //    debug($_POST);
 //    die();
     $serverid = $_POST['id'];
@@ -130,11 +130,11 @@ function update_edit_server() {
      ,drive_controller='$drivecon',hd0='$hd0',hd1='$hd1',hd2='$hd2',hd3='$hd3',drive_raid='$driveraid',chassis_brand='$chassisbrand',chassis_model='$chassisemodel',
      multiple_psus='$multiplepsus',service_tag='$servicetag',asset_tag='$assettag',warranty_expiration='$warranty_exp',managed='$managed',vps='$vps',vps_node='$vpsnode',switch_id='$switch',
      switch_port='$switch_port',rack_name_number='$rack_no',rack_position='$rack_position',ups='$ups',ups_port='$ups_port',pdu_id='$pdu',pdu_port='$pdu_port',server_notes='$notes' WHERE server_id =$serverid");
-    header('Location: /whmcs_d/admin/addonmodules.php?module=dsma');
+    header('Location:'.$vars['modulelink']);
 }
 
-function server_delete() {
+function server_delete($vars) {
     $id = $_GET['server_id'];
     $del = full_query("DELETE  FROM mod_dsma where server_id= $id");
-    header('Location: /whmcs_d/admin/addonmodules.php?module=dsma');
+    header('Location:'.$vars['modulelink']);
 }
